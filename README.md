@@ -21,4 +21,4 @@ The current setup only triggers `on merge of a PR` to the `master` branch.
     - Tag Name - from step #3 - version
     - Release Name - from step #3 - version
     - Release Details - [CHANGELOG.md](./CHANGELOG.md)
-6. upload artifact (uses [actions/upload-release-asset@v1](https://github.com/actions/upload-artifact)) - This uploads the zip files to the newly created release.
+6. upload artifact (uses [actions/upload-release-asset@v1](https://github.com/actions/upload-release-asset)) - This uploads the zip files to the newly created release.
