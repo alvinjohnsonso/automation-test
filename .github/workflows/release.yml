@@ -1,0 +1,46 @@
+name: release
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install tools
+        run: apt install jq zip
+
+      - name: version
+        id: version
+        run: echo "::set-output name=version::$(jq -r '.version' $build_dir/../composer.json)"
+
+      - name: build artifact
+        run: ./build/build-packages.sh
+
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
+          body_path: CHANGELOG.md
+
+      - name: upload artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/test-${{ steps.version.outputs.version }}.zip
+          asset_name: test-${{ steps.version.outputs.version }}.zip
+          asset_content_type: application/zip
