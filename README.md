@@ -10,6 +10,8 @@ The main goal here is to automate releases. This automatically
 ### Trigger
 The current setup only triggers `on merge of a PR` to the `master` branch.
 
+Can learn more about triggers in [Events that trigger workflows](https://docs.github.com/en/actions/reference/events-that-trigger-workflows).
+
 ### Steps
 1. checkout (uses [actions/checkout@v2](https://github.com/actions/checkout)) - This checkouts the repository's main branch.
 2. install tools - This install the tools required by the software which in this case is
