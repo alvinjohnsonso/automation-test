@@ -34,6 +34,8 @@ jobs:
           release_name: ${{ steps.version.outputs.version }}
           tag_name: ${{ steps.version.outputs.version }}
           body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: upload artifact
         uses: actions/upload-release-asset@v1
