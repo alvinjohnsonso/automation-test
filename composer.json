@@ -1,0 +1,14 @@
+{
+    "name": "alvinso/automation-test",
+    "description": "a test repository for automating releases",
+    "type": "project",
+    "license": "OSL-3",
+    "version": "1.2.0",
+    "authors": [
+        {
+            "name": "Alvin Johnson So",
+            "email": "so.alvinjohnson@gmail.com"
+        }
+    ],
+    "require": {}
+}
