@@ -20,7 +20,7 @@ jobs:
 
       - name: version
         id: version
-        run: echo "::set-output name=version::$(jq -r '.version' $build_dir/../composer.json)"
+        run: echo "::set-output name=version::$(jq -r '.version' ./composer.json)"
 
       - name: build artifact
         run: ./build/build-packages.sh
