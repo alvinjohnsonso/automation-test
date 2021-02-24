@@ -3,7 +3,7 @@
 if [ -z "$1" ]
     then
         echo "Release version wasn't specified";
-        return;
+        exit 1;
 fi
 
 build_dir=$(dirname $0);
