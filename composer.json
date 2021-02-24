@@ -3,7 +3,7 @@
     "description": "a test repository for automating releases",
     "type": "project",
     "license": "OSL-3",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "authors": [
         {
             "name": "Alvin Johnson So",
