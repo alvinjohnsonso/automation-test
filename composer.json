@@ -3,12 +3,19 @@
     "description": "a test repository for automating releases",
     "type": "project",
     "license": "OSL-3",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "authors": [
         {
             "name": "Alvin Johnson So",
             "email": "so.alvinjohnson@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpunit/phpunit": "^9.5",
+        "php-webdriver/webdriver": "^1.10",
+        "phpunit/phpunit-selenium": "^9.0"
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
 }

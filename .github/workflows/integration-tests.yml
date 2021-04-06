@@ -1,0 +1,38 @@
+name: integration-tests
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      hub:
+        image: selenium/hub:3.141.59
+        ports:
+          - 4444:4444
+      firefox:
+        image: selenium/node-firefox:3.141.59
+        env:
+          HUB_HOST: hub
+          HUB_PORT: 4444
+      chrome:
+        image: selenium/node-chrome:3.141.59
+        env:
+          HUB_HOST: hub
+          HUB_PORT: 4444
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: install dependencies
+        uses: php-actions/composer@v5
+
+      - name: run tests
+        uses: php-actions/phpunit@v2
+          configuration: ./phpunit.xml
