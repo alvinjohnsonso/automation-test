@@ -16,6 +16,8 @@
         "phpunit/phpunit-selenium": "^9.0"
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "test-chrome": "phpunit --testsuite Chrome",
+        "test-firefox": "phpunit --testsuite Firefox"
     }
 }

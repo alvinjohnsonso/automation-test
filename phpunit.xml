@@ -2,8 +2,11 @@
 
 <phpunit bootstrap = "vendor/autoload.php">
     <testsuites>
-        <testsuite name="Automation Test">
-            <directory suffix="Test.php">tests</directory>
+        <testsuite name="Chrome">
+            <file>tests/browsers/ChromeTest.php</file>
+        </testsuite>
+        <testsuite name="Firefox">
+            <file>tests/browsers/FirefoxTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>
