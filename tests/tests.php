@@ -14,9 +14,10 @@ class Tests extends TestCase
 
     public function setup(): void
     {
+        $hubHost = getenv('SELENIUM_HUB_HOST');
         $capabilities = $this->build_capabilities();
         // TODO: transfer to a config file
-        $this->webDriver = RemoteWebDriver::create('http://localhost:4444/wd/hub', $capabilities);
+        $this->webDriver = RemoteWebDriver::create($hubHost.':4444/wd/hub', $capabilities);
     }
 
     public function tearDown(): void
