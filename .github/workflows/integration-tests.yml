@@ -31,7 +31,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
       - name: install dependencies
-        uses: php-actions/composer@v5
+        uses: php-actions/composer@v4
 
       - name: run tests
         uses: php-actions/phpunit@v2
