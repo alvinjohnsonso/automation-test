@@ -35,7 +35,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
       - name: run tests
-        run: "composer test-chrome"
+        run: "composer run test-chrome"
   firefox:
     runs-on: ubuntu-latest
     needs: [build]
@@ -52,4 +52,4 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
       - name: run tests
-        run: "composer test-firefox"
+        run: "composer run test-firefox"
