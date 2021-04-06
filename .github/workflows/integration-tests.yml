@@ -12,10 +12,11 @@ jobs:
       - name: install dependencies
         uses: php-actions/composer@v4
 
-      - name: Cache Composer dependencies
+      - name: cache build
         uses: actions/cache@v2
+        id: build
         with:
-          path: ./vendor
+          path: ./*
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
   chrome:
     runs-on: ubuntu-latest
@@ -31,13 +32,11 @@ jobs:
           HUB_HOST: hub
           HUB_PORT: 4444
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-
-      - name: Cache Composer dependencies
+      - name: restore build
         uses: actions/cache@v2
+        id: build
         with:
-          path: ./vendor
+          path: ./*
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
       - name: run tests
@@ -56,13 +55,10 @@ jobs:
           HUB_HOST: hub
           HUB_PORT: 4444
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-
-      - name: Cache Composer dependencies
+      - name: restore build
         uses: actions/cache@v2
         with:
-          path: ./vendor
+          path: ./*
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
       - name: run tests
