@@ -35,4 +35,5 @@ jobs:
 
       - name: run tests
         uses: php-actions/phpunit@v2
+        with:
           configuration: ./phpunit.xml
