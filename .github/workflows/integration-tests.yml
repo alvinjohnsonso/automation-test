@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -23,16 +23,16 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: install dependencies
-        uses: php-actions/composer@v4
+        uses: php-actions/composer@v5
 
-      - name: upload build
+      - name: upload build artifact
         uses: actions/upload-artifact@v2
         with:
           name: build
           path: ./
 
   tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: [build]
     strategy:
       matrix:
@@ -43,10 +43,18 @@ jobs:
         ports:
           - 4444:4444
     steps:
-      - name: download build
+      - name: download build artifact
         uses: actions/download-artifact@v2
         with:
           name: build
           path: ./
       - name: run tests
         run: composer run test-${{matrix.browser}}
+
+  cleanup:
+    runs-on: ubuntu-18.04
+    needs: [tests]
+    steps:
+      - name: delete build artifact
+        with:
+          name: build
