@@ -56,5 +56,6 @@ jobs:
     needs: [tests]
     steps:
       - name: delete build artifact
+        uses: geekyeggo/delete-artifact@v1
         with:
           name: build
