@@ -5,14 +5,6 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        browser: ['chrome', 'firefox']
-    services:
-      chrome:
-        image: selenium/standalone-${{matrix.browser}}:3.141.59
-        ports:
-          - 4444:4444
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -33,5 +25,27 @@ jobs:
       - name: install dependencies
         uses: php-actions/composer@v4
 
+      - name: upload build
+        uses: action/upload-artifact@v2
+        with:
+          name: build
+          path: ./*
+
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: ['chrome', 'firefox']
+    services:
+      chrome:
+        image: selenium/standalone-${{matrix.browser}}:3.141.59
+        ports:
+          - 4444:4444
+    steps:
+      - name: download build
+        uses: action/download-artifact@v2
+        with:
+          name: build
+          path: ./*
       - name: run tests
         run: composer run test-${{matrix.browser}}
