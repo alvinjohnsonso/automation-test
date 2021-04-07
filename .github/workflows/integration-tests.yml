@@ -44,10 +44,5 @@ jobs:
           # the key will change if composer.lock changes
           key: ${{ runner.os }}-dependencies-${{ hashFiles('**/composer.lock') }}
 
-      - name: download build artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: ./
       - name: run tests
         run: composer run test-${{matrix.browser}}
