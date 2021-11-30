@@ -43,9 +43,9 @@ jobs:
           wordpress:cli \
           wp core install \
           --path="/var/www/html" \
-          --url=wordpress \
+          --url=${{ job.services.wordpress.id }} \
           --title="Local Wordpress By Docker" \
           --admin_user=admin \
           --admin_password=admin \
           --admin_email=admin@example.com
-      - run: curl wordpress
+      - run: curl ${{ job.services.wordpress.id }}
