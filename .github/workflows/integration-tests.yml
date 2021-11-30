@@ -28,10 +28,33 @@ jobs:
       matrix:
         browser: ['chrome', 'firefox']
     services:
-      chrome:
-        image: selenium/standalone-${{matrix.browser}}:3.141.59
+      selenium:
+        image: selenium/standalone-${{matrix.browser}}:latest
         ports:
           - 4444:4444
+      db:
+        image: mysql:5.7
+        volumes:
+          - db_data:/var/lib/mysql
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: somewordpress
+          MYSQL_DATABASE: wordpress
+          MYSQL_USER: wordpress
+          MYSQL_PASSWORD: wordpress
+
+      wordpress:
+        image: wordpress:latest
+        ports:
+          - 80:80
+        env:
+          MYSQL_ROOT_PASSWORD: somewordpress
+          MYSQL_DATABASE: wordpress
+          MYSQL_USER: wordpress
+          MYSQL_PASSWORD: wordpress
+        volumes:
+          - wp_data:/var/www/html
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -43,6 +66,24 @@ jobs:
           path: ./vendor
           # the key will change if composer.lock changes
           key: ${{ runner.os }}-dependencies-${{ hashFiles('**/composer.lock') }}
+
+      - name: setup wordpress
+        run: |
+          docker run --rm \
+          --volumes-from ${{ job.services.wordpress.id }} \
+          --network ${{ job.container.network }} \
+          -e WORDPRESS_DB_HOST=db:3306 \
+          -e WORDPRESS_DB_NAME=wordpress \
+          -e WORDPRESS_DB_USER=wordpress \
+          -e WORDPRESS_DB_PASSWORD=wordpress \
+          wordpress:cli \
+          wp core install \
+          --path="/var/www/html" \
+          --url=wordpress \
+          --title="Local Wordpress By Docker" \
+          --admin_user=admin \
+          --admin_password=admin \
+          --admin_email=admin@example.com
 
       - name: run tests
         run: composer run test-${{matrix.browser}}
