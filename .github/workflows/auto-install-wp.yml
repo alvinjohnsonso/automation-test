@@ -33,7 +33,7 @@ jobs:
       - run: echo "${{ toJson(job) }}"
       - run: docker volume ls
       - run: |
-          docker run -it --rm \
+          docker run --rm \
           --volumes-from wp_data \
           --network ${{ job.container.network }} \
           -e WORDPRESS_DB_HOST: db:3306 \
