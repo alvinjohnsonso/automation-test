@@ -30,7 +30,7 @@ class Tests extends TestCase
      */
     public function test_searchTextOnGoogle()
     {
-        $this->webDriver->get("wordpress");
+        $this->webDriver->get('http://wordpress/');
         $this->assertEquals('http://wordpress/', $this->webDriver->getCurrentURL());
     }
 }
