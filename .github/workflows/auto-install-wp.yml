@@ -24,6 +24,8 @@ jobs:
           WORDPRESS_DB_USER: wordpress
           WORDPRESS_DB_PASSWORD: wordpress
           WORDPRESS_DEBUG: 1
+        ports:
+          - 80:80
         volumes:
           - wp_data:/var/www/html
     steps:
@@ -43,9 +45,9 @@ jobs:
           wordpress:cli \
           wp core install \
           --path="/var/www/html" \
-          --url=${{ job.services.wordpress.id }} \
+          --url=wordpress \
           --title="Local Wordpress By Docker" \
           --admin_user=admin \
           --admin_password=admin \
           --admin_email=admin@example.com
-      - run: curl ${{ job.services.wordpress.id }}
+      - run: curl wordpress
