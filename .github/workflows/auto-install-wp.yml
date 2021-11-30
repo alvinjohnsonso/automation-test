@@ -32,4 +32,20 @@ jobs:
 
       - run: echo "${{ toJson(job) }}"
       - run: docker volume ls
-
+      - run: |
+          docker run -it --rm \
+          --volumes-from wp_data \
+          --network ${{ job.container.network }} \
+          -e WORDPRESS_DB_HOST: db:3306 \
+          -e WORDPRESS_DB_NAME: wordpress \
+          -e WORDPRESS_DB_USER: wordpress \
+          -e WORDPRESS_DB_PASSWORD: wordpress \
+          wordpress:cli \
+          wp core install \
+          --path="/var/www/html" \
+          --url=wordpress \
+          --title="Local Wordpress By Docker" \
+          --admin_user=admin \
+          --admin_password=admin \
+          --admin_email=admin@example.com
+      - run: curl wordpress
