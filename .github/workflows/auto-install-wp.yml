@@ -34,7 +34,7 @@ jobs:
       - run: docker volume ls
       - run: |
           docker run --rm \
-          --volumes-from ${{ job.services.wordpress }} \
+          --volumes-from ${{ job.services.wordpress.id }} \
           --network ${{ job.container.network }} \
           -e WORDPRESS_DB_HOST=db:3306 \
           -e WORDPRESS_DB_NAME=wordpress \
