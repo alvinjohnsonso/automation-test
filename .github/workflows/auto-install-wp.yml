@@ -36,10 +36,10 @@ jobs:
           docker run --rm \
           --volumes-from wp_data \
           --network ${{ job.container.network }} \
-          -e WORDPRESS_DB_HOST: db:3306 \
-          -e WORDPRESS_DB_NAME: wordpress \
-          -e WORDPRESS_DB_USER: wordpress \
-          -e WORDPRESS_DB_PASSWORD: wordpress \
+          -e WORDPRESS_DB_HOST=db:3306 \
+          -e WORDPRESS_DB_NAME=wordpress \
+          -e WORDPRESS_DB_USER=wordpress \
+          -e WORDPRESS_DB_PASSWORD=wordpress \
           wordpress:cli \
           wp core install \
           --path="/var/www/html" \
