@@ -30,6 +30,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - run: echo toJson(${{job.services.wordpress}})
-      - run: echo toJson(${{job.services}})
+      - run: echo toJson("${{job.services.wordpress}}")
+      - run: echo toJson("${{job.services}}")
 
